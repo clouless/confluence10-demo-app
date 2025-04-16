@@ -1,0 +1,10 @@
+#requireResource("ctendemo:resources")
+
+<div
+    class="ctendemo-container"
+>
+    <div>
+        <div>#if($globaltitle)$globaltitle#{end}</div>
+        ctendemo macro
+    </div>
+</div>

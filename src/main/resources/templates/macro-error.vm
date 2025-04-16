@@ -1,0 +1,12 @@
+#requireResource("ctendemo:resources")
+
+<div
+        class="ctendemo-container"
+>
+    <div>
+        <h2>error</h2>
+        <div>#if($errorbody)$errorbody#{end}</div>
+        <div>#if($errorkey)$errorkey#{end}</div>
+        ctendemo macro
+    </div>
+</div>

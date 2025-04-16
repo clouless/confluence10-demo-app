@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>io.codeclou</groupId>
+    <artifactId>ctendemo</artifactId>
+    <version>7.0.0</version>
+    <organization>
+        <name>codeclou.io</name>
+        <url>https://codeclou.io/</url>
+    </organization>
+    <name>CTen Demo</name>
+    <description>Demo app for Confluence 10</description>
+    <packaging>atlassian-plugin</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.confluence</groupId>
+            <artifactId>confluence-java-api</artifactId>
+            <version>${confluence.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+        <!-- CONFLUENCE 9+ REST START -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins.rest</groupId>
+            <artifactId>atlassian-rest-v2-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- CONFLUENCE 9+ REST END -->
+
+        <dependency>
+            <groupId>com.atlassian.sal</groupId>
+            <artifactId>sal-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.12.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-configuration2</artifactId>
+            <version>2.11.0</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+        <!-- JAVA CONFIG DEPS START -->
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>osgi.core</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-osgi-javaconfig</artifactId>
+            <version>0.6.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <!-- JAVA CONFIG DEPS END -->
+
+        <!-- CONFLUENCE 9+ LOGGING START -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>2.24.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>2.24.3</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.17</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>2.24.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>2.24.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- CONFLUENCE 9+ LOGGING END -->
+
+
+        <dependency>
+            <groupId>com.atlassian.upm</groupId>
+            <artifactId>licensing-api</artifactId>
+            <version>${upm.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.upm</groupId>
+            <artifactId>upm-api</artifactId>
+            <version>${upm.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-plugins-webresource</artifactId>
+            <scope>provided</scope>
+            <version>8.0.0-jakarta-m002</version>
+        </dependency>
+
+
+        <!-- CONFLUENCE 9+ HTTPCLIENT START -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.18.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.17.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.client5</groupId>
+            <artifactId>httpclient5</artifactId>
+            <version>5.4.3</version>
+            <scope>compile</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents.core5</groupId>
+                    <artifactId>httpcore5</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.httpcomponents.core5</groupId>
+                    <artifactId>httpcore5-h2</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.core5</groupId>
+            <artifactId>httpcore5</artifactId>
+            <version>5.3.3</version>            <!-- NEDED FOR java.lang.NoSuchMethodError: 'void org.apache.hc.core5.http.impl.io.DefaultHttpRequestWriterFactory.<init>(org.apache.hc.core5.http.config.Http1Config)' -->
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents.core5</groupId>
+            <artifactId>httpcore5-h2</artifactId>
+            <version>5.3.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.18.0</version>
+            <scope>compile</scope>
+            <!-- HTTP CLIENT COMPILE DEP -->
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.3.5</version>
+            <scope>compile</scope>
+            <!-- HTTP CLIENT COMPILE DEP -->
+        </dependency>
+        <!-- CONFLUENCE 9+ HTTPCLIENT END -->
+
+        <dependency>
+            <groupId>com.atlassian.plugins</groupId>
+            <artifactId>atlassian-whitelist-api-plugin</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <!-- SINCE CONFLUENCE 10.0 -->
+            <groupId>com.atlassian.security.serialblocklist</groupId>
+            <artifactId>serialblocklist</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- SINCE CONFLUENCE 10.0 -->
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.atlassian.confluence</groupId>
+                <artifactId>confluence-plugins-platform-pom</artifactId>
+                <version>${confluence.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.atlassian.platform.dependencies</groupId>
+                <artifactId>platform-public-api</artifactId>
+                <version>${platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.atlassian.platform.dependencies</groupId>
+                <artifactId>platform-deprecated-public-api</artifactId>
+                <version>${platform.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>confluence-maven-plugin</artifactId>
+                <version>${amps.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <banningExcludes>
+                        <exclude>org.slf4j:slf4j-api</exclude>
+                        <exclude>org.apache.commons:commons-lang3</exclude>
+                        <exclude>org.apache.httpcomponents:httpclient</exclude>
+                        <exclude>org.apache.httpcomponents:httpcore</exclude>
+                        <exclude>commons-io:commons-io</exclude>
+                        <!-- New Confluence 10.0 compile deps excludes -->
+                        <exclude>org.apache.commons:commons-text</exclude>
+                        <exclude>commons-codec:commons-codec</exclude>
+                        <exclude>com.google.code.gson:gson</exclude>
+                    </banningExcludes>
+                    <allowGoogleTracking>false</allowGoogleTracking>
+                    <productVersion>${confluence.version}</productVersion>
+                    <productDataVersion>${confluence.data.version}</productDataVersion>
+                    <compressJs>false</compressJs>
+                    <compressCss>false</compressCss>
+                    <compressResources>false</compressResources>
+                    <skipManifestValidation>true</skipManifestValidation>
+                    <enableQuickReload>true</enableQuickReload>
+                    <instructions>
+                        <Atlassian-Plugin-Key>${atlassian.plugin.key}</Atlassian-Plugin-Key>
+                        <Export-Package />
+                        <Import-Package>
+                            com.atlassian.security.serialblocklist,
+                            com.atlassian.sal.*,
+                            !org.apache.commons.beanutils.*,
+                            !org.apache.hc.core5.*,
+                            !com.google.gson.*,
+                            !org.apache.commons.codec.binary.*,
+                            !org.apache.commons.io.*,
+                            !org.apache.commons.lang3.*,
+                            !org.apache.hc.httpclient5.*,
+                            !org.slf4j.*,
+                            !org.apache.logging.*,
+                            !org.apache.commons.logging.*,
+                            !org.apache.commons.configuration2.*, javax.servlet;resolution:=optional, org.jspecify.annotations;resolution:=optional, sun.nio.ch;resolution:=optional, sun.misc;resolution:=optional, java.sql;resolution:=optional, java.beans;resolution:=optional, jdk.net;resolution:=optional, java.applet;resolution:=optional, java.awt;resolution:=optional, org.apache.log.*;resolution:=optional, javax.jms;resolution:=optional, javax.script;resolution:=optional, javax.sql;resolution:=optional, javax.swing.text;resolution:=optional, javax.tools;resolution:=optional, javax.transaction.xa;resolution:=optional, org.apache.avalon.framework.logger;resolution:=optional, org.apache.commons.compress.*;resolution:=optional, org.apache.commons.csv.*;resolution:=optional, org.apache.kafka.*;resolution:=optional, org.brotli.dec.*;resolution:=optional, org.conscrypt.*;resolution:=optional, com.conversantmedia.util.concurrent.*;resolution:=optional, com.lmax.disruptor.*;resolution:=optional, org.fusesource.*;resolution:=optional, org.ietf.jgss.*;resolution:=optional, org.jctools.queues.*;resolution:=optional, org.zeromq.*;resolution:=optional, org.apache.commons.jexl2.*;resolution:=optional, org.apache.commons.jxpath.*;resolution:=optional, org.apache.commons.vfs2.*;resolution:=optional, org.apache.xml.resolver.*;resolution:=optional, org.yaml.snakeyaml.*;resolution:=optional, com.fasterxml.jackson.databind.*;resolution:=optional,
+                            *
+                        </Import-Package>
+                        <Spring-Context>*</Spring-Context>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <properties>
+        <!-- DO NEVER CHANGE THIS RANDOMLY !!! -->
+        <confluence.version>10.0.0-m38</confluence.version>
+        <!-- DO NEVER CHANGE THIS RANDOMLY !!! -->
+        <confluence.data.version>10.0.0-m38</confluence.data.version>
+        <amps.version>9.3.2</amps.version>
+        <platform.version>8.0.0-jakarta-m030</platform.version>
+        <plugin.testrunner.version>2.0.1</plugin.testrunner.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <testkit.version>6.3.11</testkit.version>
+        <atlassian.plugin.key>ctendemo</atlassian.plugin.key>
+        <!-- https://packages.atlassian.com/maven-atlassian-external/com/atlassian/upm/upm-api/ -->
+        <upm.version>8.0.0-jakarta-m010</upm.version>
+    </properties>
+</project>

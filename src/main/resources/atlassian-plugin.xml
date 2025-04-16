@@ -1,0 +1,78 @@
+<atlassian-plugin key="ctendemo" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <!-- NEEDED -->
+        <param name="plugin-icon">images/logo-16x16.png</param>
+        <param name="plugin-logo">images/logo-144x144.png</param>
+        <param name="vendor-icon">images/cc-logo-16x16.png</param>
+        <param name="vendor-logo">images/cc-logo-72x72.png</param>
+        <!-- NEEDED -->
+
+        <param name="read-only-access-mode-compatible">true</param>
+        <param name="atlassian-data-center-status">compatible</param>
+        <param name="atlassian-data-center-compatible">true</param>
+        <param name="atlassian-licensing-enabled">true</param>
+        <param name="plugin-type">data-center</param>
+    </plugin-info>
+
+
+    <velocity-allowlist key="velocity-allowlist-advancedcodeblocks">
+        <method>io.codeclou.ctendemo.macro.DataPojo#getFoo()</method>
+    </velocity-allowlist>
+
+    <xhtml-macro name="ctdendemo-macro" class="io.codeclou.macro.CTenDemoMacro" key="ctendemomacro" documentation-url="https://codeclou.io/" icon="/download/resources/ctdendemo/images/logo-80x80.png" hidden="false">
+        <category name="formatting"/>
+        <parameters>
+            <parameter name="globaltitle" type="string" required="false" />
+            <parameter name="enableddl" type="boolean" default="false"/>
+            <parameter name="lang" type="enum">
+                <value name="1C" />
+                <value name="ABNF" />
+                <value name="Access logs" />
+
+                <value name="XQuery" />
+                <value name="Zephir" />
+            </parameter>
+            <parameter name="theme" type="enum">
+                <value name="light-spring" />
+                <value name="dark-spring" />
+                <value name="light-mono" />
+                <value name="dark-mono" />
+            </parameter>
+        </parameters>
+    </xhtml-macro>
+
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="messages"/>
+    <resource type="download" name="images/" location="images" />
+
+
+    <!-- PRINT CSS AND INITIAL PAGE LOAD CSS -->
+    <web-resource key="resources" name="ctendemo Web Resources">
+        <resource type="download" name="ctendemo-main.css" location="css/ctendemo-main.css">
+            <property key="content-type" value="text/css"/>
+            <param name="media" value="screen,print"/>
+        </resource>
+        <resource type="download" name="ctendemo-print.css" location="css/ctendemo-print.css">
+            <property key="content-type" value="text/css"/>
+            <param name="media" value="print"/>
+        </resource>
+        <resource type="download" name="images/" location="images"/>
+        <context>atl.general</context>
+        <context>macro-browser</context>
+        <context>main</context>
+    </web-resource>
+
+
+    <rest-migration key="ctendemorestmig">
+        <rest-v2/>
+    </rest-migration>
+    <rest key="restAc" path="/ctendemo" version="1">
+        <description>Provides REST resources.</description>
+    </rest>
+
+
+</atlassian-plugin>
