@@ -58,6 +58,12 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <!--
+            [INFO] +- org.apache.commons:commons-configuration2:jar:2.11.0:compile
+            [INFO] |  +- org.apache.commons:commons-lang3:jar:3.17.0:compile
+            [INFO] |  +- org.apache.commons:commons-text:jar:1.12.0:compile
+            [INFO] |  \- commons-logging:commons-logging:jar:1.1.3:compile
+            -->
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-configuration2</artifactId>
             <version>2.11.0</version>
@@ -150,62 +156,6 @@
         </dependency>
 
 
-        <!-- CONFLUENCE 9+ HTTPCLIENT START -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.18.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.17.0</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents.client5</groupId>
-            <artifactId>httpclient5</artifactId>
-            <version>5.4.3</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents.core5</groupId>
-                    <artifactId>httpcore5</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.httpcomponents.core5</groupId>
-                    <artifactId>httpcore5-h2</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents.core5</groupId>
-            <artifactId>httpcore5</artifactId>
-            <version>5.3.3</version>            <!-- NEDED FOR java.lang.NoSuchMethodError: 'void org.apache.hc.core5.http.impl.io.DefaultHttpRequestWriterFactory.<init>(org.apache.hc.core5.http.config.Http1Config)' -->
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.httpcomponents.core5</groupId>
-            <artifactId>httpcore5-h2</artifactId>
-            <version>5.3.3</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>commons-codec</groupId>
-            <artifactId>commons-codec</artifactId>
-            <version>1.18.0</version>
-            <scope>compile</scope>
-            <!-- HTTP CLIENT COMPILE DEP -->
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.3.5</version>
-            <scope>compile</scope>
-            <!-- HTTP CLIENT COMPILE DEP -->
-        </dependency>
-        <!-- CONFLUENCE 9+ HTTPCLIENT END -->
 
         <dependency>
             <groupId>com.atlassian.plugins</groupId>
@@ -224,6 +174,7 @@
             <artifactId>jakarta.inject-api</artifactId>
             <scope>provided</scope>
         </dependency>
+
     </dependencies>
     <dependencyManagement>
         <dependencies>
@@ -260,10 +211,6 @@
                 <configuration>
                     <banningExcludes>
                         <exclude>org.slf4j:slf4j-api</exclude>
-                        <exclude>org.apache.commons:commons-lang3</exclude>
-                        <exclude>org.apache.httpcomponents:httpclient</exclude>
-                        <exclude>org.apache.httpcomponents:httpcore</exclude>
-                        <exclude>commons-io:commons-io</exclude>
                         <!-- New Confluence 10.0 compile deps excludes -->
                         <exclude>org.apache.commons:commons-text</exclude>
                         <exclude>commons-codec:commons-codec</exclude>
@@ -283,17 +230,42 @@
                         <Import-Package>
                             com.atlassian.security.serialblocklist,
                             com.atlassian.sal.*,
-                            !org.apache.commons.beanutils.*,
-                            !org.apache.hc.core5.*,
                             !com.google.gson.*,
-                            !org.apache.commons.codec.binary.*,
-                            !org.apache.commons.io.*,
-                            !org.apache.commons.lang3.*,
-                            !org.apache.hc.httpclient5.*,
                             !org.slf4j.*,
                             !org.apache.logging.*,
                             !org.apache.commons.logging.*,
-                            !org.apache.commons.configuration2.*, javax.servlet;resolution:=optional, org.jspecify.annotations;resolution:=optional, sun.nio.ch;resolution:=optional, sun.misc;resolution:=optional, java.sql;resolution:=optional, java.beans;resolution:=optional, jdk.net;resolution:=optional, java.applet;resolution:=optional, java.awt;resolution:=optional, org.apache.log.*;resolution:=optional, javax.jms;resolution:=optional, javax.script;resolution:=optional, javax.sql;resolution:=optional, javax.swing.text;resolution:=optional, javax.tools;resolution:=optional, javax.transaction.xa;resolution:=optional, org.apache.avalon.framework.logger;resolution:=optional, org.apache.commons.compress.*;resolution:=optional, org.apache.commons.csv.*;resolution:=optional, org.apache.kafka.*;resolution:=optional, org.brotli.dec.*;resolution:=optional, org.conscrypt.*;resolution:=optional, com.conversantmedia.util.concurrent.*;resolution:=optional, com.lmax.disruptor.*;resolution:=optional, org.fusesource.*;resolution:=optional, org.ietf.jgss.*;resolution:=optional, org.jctools.queues.*;resolution:=optional, org.zeromq.*;resolution:=optional, org.apache.commons.jexl2.*;resolution:=optional, org.apache.commons.jxpath.*;resolution:=optional, org.apache.commons.vfs2.*;resolution:=optional, org.apache.xml.resolver.*;resolution:=optional, org.yaml.snakeyaml.*;resolution:=optional, com.fasterxml.jackson.databind.*;resolution:=optional,
+                            !org.apache.commons.beanutils.*,
+                            !org.apache.commons.configuration2.*,
+
+                            javax.servlet;resolution:=optional,<!-- OPTIONAL dep in CONFLUENCE 10 -->
+                            org.jspecify.annotations;resolution:=optional,<!-- OPTIONAL dep in CONFLUENCE 10 -->
+
+
+                            org.apache.log.*;resolution:=optional,<!-- OPTIONAL dep commons-logging logkit -->
+                            javax.jms;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            javax.script;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            javax.sql;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            javax.swing.text;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            javax.tools;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            javax.transaction.xa;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.apache.avalon.framework.logger;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.apache.commons.compress.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.apache.commons.csv.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.apache.kafka.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.brotli.dec.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.conscrypt.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            com.conversantmedia.util.concurrent.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            com.lmax.disruptor.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.fusesource.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.ietf.jgss.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.jctools.queues.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.zeromq.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
+                            org.apache.commons.jexl2.*;resolution:=optional,<!-- OPTIONAL dep ini parser => commons-configuration2 -->
+                            org.apache.commons.jxpath.*;resolution:=optional,<!-- OPTIONAL dep ini parser => commons-configuration2 -->
+                            org.apache.commons.vfs2.*;resolution:=optional,<!-- OPTIONAL dep ini parser => commons-configuration2 -->
+                            org.apache.xml.resolver.*;resolution:=optional,<!-- OPTIONAL dep ini parser => commons-configuration2 -->
+                            org.yaml.snakeyaml.*;resolution:=optional,<!-- OPTIONAL dep ini parser => commons-configuration2 -->
+                            com.fasterxml.jackson.databind.*;resolution:=optional,<!-- OPTIONAL dep ini parser => commons-configuration2 -->
                             *
                         </Import-Package>
                         <Spring-Context>*</Spring-Context>
@@ -308,7 +280,7 @@
         <!-- DO NEVER CHANGE THIS RANDOMLY !!! -->
         <confluence.data.version>10.0.0-m38</confluence.data.version>
         <amps.version>9.3.2</amps.version>
-        <platform.version>8.0.0-jakarta-m030</platform.version>
+        <platform.version>8.0.0-jakarta-m031-13634dee7</platform.version>
         <plugin.testrunner.version>2.0.1</plugin.testrunner.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
