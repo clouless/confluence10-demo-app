@@ -22,7 +22,7 @@
         <method>io.codeclou.ctendemo.macro.DataPojo#getFoo()</method>
     </velocity-allowlist>
 
-    <xhtml-macro name="ctdendemo-macro" class="io.codeclou.macro.CTenDemoMacro" key="ctendemomacro" documentation-url="https://codeclou.io/" icon="/download/resources/ctdendemo/images/logo-80x80.png" hidden="false">
+    <xhtml-macro name="ctdendemo-macro" class="io.codeclou.ctendemo.macro.CTenDemoMacro" key="ctendemomacro" documentation-url="https://codeclou.io/" icon="/download/resources/ctdendemo/images/logo-80x80.png" hidden="false">
         <category name="formatting"/>
         <parameters>
             <parameter name="globaltitle" type="string" required="false" />

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.codeclou</groupId>
     <artifactId>ctendemo</artifactId>
-    <version>7.0.0</version>
+    <version>7.1.0</version>
     <organization>
         <name>codeclou.io</name>
         <url>https://codeclou.io/</url>
@@ -57,18 +57,27 @@
             <version>2.12.1</version>
             <scope>compile</scope>
         </dependency>
+
+        <!--
+        [INFO] +- org.apache.commons:commons-configuration2:jar:2.11.0:compile
+        [INFO] |  +- org.apache.commons:commons-lang3:jar:3.17.0:compile
+        [INFO] |  +- org.apache.commons:commons-text:jar:1.12.0:compile
+        [INFO] |  \- commons-logging:commons-logging:jar:1.1.3:compile
+        -->
         <dependency>
-            <!--
-            [INFO] +- org.apache.commons:commons-configuration2:jar:2.11.0:compile
-            [INFO] |  +- org.apache.commons:commons-lang3:jar:3.17.0:compile
-            [INFO] |  +- org.apache.commons:commons-text:jar:1.12.0:compile
-            [INFO] |  \- commons-logging:commons-logging:jar:1.1.3:compile
-            -->
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-configuration2</artifactId>
             <version>2.11.0</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-beanutils2</artifactId>
+            <version>2.0.0-M1</version>
+            <scope>compile</scope>
+            <!-- also somehow needed by commons-configuration2 or transitive deps -->
+        </dependency>
+
 
 
         <!-- JAVA CONFIG DEPS START -->
@@ -102,6 +111,7 @@
         <!-- JAVA CONFIG DEPS END -->
 
         <!-- CONFLUENCE 9+ LOGGING START -->
+        <!--
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
@@ -132,6 +142,7 @@
             <version>2.24.3</version>
             <scope>compile</scope>
         </dependency>
+        -->
         <!-- CONFLUENCE 9+ LOGGING END -->
 
 
@@ -215,6 +226,7 @@
                         <exclude>org.apache.commons:commons-text</exclude>
                         <exclude>commons-codec:commons-codec</exclude>
                         <exclude>com.google.code.gson:gson</exclude>
+                        <exclude>org.apache.commons:commons-lang3</exclude>
                     </banningExcludes>
                     <allowGoogleTracking>false</allowGoogleTracking>
                     <productVersion>${confluence.version}</productVersion>
@@ -231,14 +243,22 @@
                             com.atlassian.security.serialblocklist,
                             com.atlassian.sal.*,
                             !com.google.gson.*,
-                            !org.slf4j.*,
-                            !org.apache.logging.*,
-                            !org.apache.commons.logging.*,
-                            !org.apache.commons.beanutils.*,
-                            !org.apache.commons.configuration2.*,
+                            <!--!org.slf4j.*,
+                            !org.apache.logging.*,-->
 
-                            javax.servlet;resolution:=optional,<!-- OPTIONAL dep in CONFLUENCE 10 -->
                             org.jspecify.annotations;resolution:=optional,<!-- OPTIONAL dep in CONFLUENCE 10 -->
+
+
+
+
+                            !org.apache.commons.configuration2.*,<!-- commons configuration is main dependency -->
+                            !org.apache.commons.logging.*,<!-- commons logging is dependency of commons configuration -->
+                            !org.apache.commons.beanutils.*,<!-- commons beanutils is dependency of commons configuration -->
+
+
+                            !javax.servlet,<!-- BLOCK IMPORT (not bundled, not provided by Confluence) CONFLUENCE 10 -->
+                            !jdk.net,<!-- BLOCK IMPORT (not bundled, not provided by Confluence) CONFLUENCE 10 -->
+                            !javax.transaction.xa,<!-- BLOCK IMPORT (not bundled, not provided by Confluence) CONFLUENCE 10 -->
 
 
                             org.apache.log.*;resolution:=optional,<!-- OPTIONAL dep commons-logging logkit -->
@@ -247,7 +267,6 @@
                             javax.sql;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
                             javax.swing.text;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
                             javax.tools;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
-                            javax.transaction.xa;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
                             org.apache.avalon.framework.logger;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
                             org.apache.commons.compress.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
                             org.apache.commons.csv.*;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
@@ -266,6 +285,8 @@
                             org.apache.xml.resolver.*;resolution:=optional,<!-- OPTIONAL dep ini parser => commons-configuration2 -->
                             org.yaml.snakeyaml.*;resolution:=optional,<!-- OPTIONAL dep ini parser => commons-configuration2 -->
                             com.fasterxml.jackson.databind.*;resolution:=optional,<!-- OPTIONAL dep ini parser => commons-configuration2 -->
+
+
                             *
                         </Import-Package>
                         <Spring-Context>*</Spring-Context>
@@ -276,9 +297,9 @@
     </build>
     <properties>
         <!-- DO NEVER CHANGE THIS RANDOMLY !!! -->
-        <confluence.version>10.0.0-m38</confluence.version>
+        <confluence.version>10.0.0-m44</confluence.version>
         <!-- DO NEVER CHANGE THIS RANDOMLY !!! -->
-        <confluence.data.version>10.0.0-m38</confluence.data.version>
+        <confluence.data.version>10.0.0-m44</confluence.data.version>
         <amps.version>9.3.2</amps.version>
         <platform.version>8.0.0-jakarta-m031-13634dee7</platform.version>
         <plugin.testrunner.version>2.0.1</plugin.testrunner.version>
