@@ -217,24 +217,16 @@
                             com.atlassian.security.serialblocklist,
                             com.atlassian.sal.*,
                             !com.google.gson.*,
-                            <!--!org.slf4j.*,
-                            !org.apache.logging.*,-->
-
                             org.jspecify.annotations;resolution:=optional,<!-- OPTIONAL dep in CONFLUENCE 10 -->
-
-
-
 
                             !org.apache.commons.configuration2.*,<!-- commons configuration is main dependency -->
                             !org.apache.commons.logging.*,<!-- commons logging is dependency of commons configuration -->
                             !org.apache.commons.beanutils.*,<!-- commons beanutils is dependency of commons configuration -->
 
-
+                            !javax.annotation,<!-- BLOCK IMPORT (not bundled, not provided by Confluence) CONFLUENCE 11 -->
                             !javax.servlet,<!-- BLOCK IMPORT (not bundled, not provided by Confluence) CONFLUENCE 10 -->
                             !jdk.net,<!-- BLOCK IMPORT (not bundled, not provided by Confluence) CONFLUENCE 10 -->
                             !javax.transaction.xa,<!-- BLOCK IMPORT (not bundled, not provided by Confluence) CONFLUENCE 10 -->
-
-
                             org.apache.log.*;resolution:=optional,<!-- OPTIONAL dep commons-logging logkit -->
                             javax.jms;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
                             javax.script;resolution:=optional,<!-- OPTIONAL dep dep ini parser => commons-configuration2 => commons-logging -->
@@ -270,12 +262,10 @@
         </plugins>
     </build>
     <properties>
-        <!-- DO NEVER CHANGE THIS RANDOMLY !!! -->
-        <confluence.version>10.0.0-m44</confluence.version>
-        <!-- DO NEVER CHANGE THIS RANDOMLY !!! -->
-        <confluence.data.version>10.0.0-m44</confluence.data.version>
+        <confluence.version>10.0.0-beta2</confluence.version>
+        <confluence.data.version>10.0.0-beta2</confluence.data.version>
         <amps.version>9.3.2</amps.version>
-        <platform.version>8.0.0-jakarta-m031-13634dee7</platform.version>
+        <platform.version>8.0.0-jakarta-m031-13634dee7</platform.version><!-- https://maven.artifacts.atlassian.com/com/atlassian/platform/dependencies/platform-public-api/ -->
         <plugin.testrunner.version>2.0.1</plugin.testrunner.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>21</maven.compiler.source>
